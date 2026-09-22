@@ -1,0 +1,206 @@
+@import 'tailwindcss';
+
+/* -------------------------------------------------------------------------- */
+/*  Tasarım tokenları — mürekkep laciverti + kum + bakır                       */
+/* -------------------------------------------------------------------------- */
+
+@theme {
+  /* Koyu yüzeyler */
+  --color-ink: #141b2e;
+  --color-ink-deep: #0b1020;
+  --color-ink-soft: #1e2843;
+  --color-ink-line: #2c3757;
+
+  /* Açık yüzeyler */
+  --color-cream: #f5f2ec;
+  --color-paper: #fbfaf7;
+  --color-sand: #e6e0d6;
+  --color-sand-deep: #d6cec0;
+
+  /* Vurgu — bakır. `copper` açık zeminde, `copper-light` koyu zeminde AA sağlar. */
+  --color-copper: #8a4e23;
+  --color-copper-light: #c07c42;
+
+  /* Metin */
+  --color-muted: #55607a;
+  --color-muted-invert: #b7c0d6;
+
+  --font-display: var(--font-display-src), 'Archivo', ui-sans-serif, system-ui,
+    sans-serif;
+  --font-body: var(--font-body-src), 'IBM Plex Sans', ui-sans-serif, system-ui,
+    sans-serif;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Temel                                                                      */
+/* -------------------------------------------------------------------------- */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    /* Sticky header'ın anchor hedefini kapatmaması için */
+    scroll-padding-top: 5.5rem;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-feature-settings: 'ss01';
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.021em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-copper);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+
+  .on-ink :focus-visible {
+    outline-color: var(--color-copper-light);
+  }
+
+  /* İçerik hiç görünmeden kaybolmasın: JS kapalıysa reveal devre dışı */
+  .no-js .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Yardımcı sınıflar                                                          */
+/* -------------------------------------------------------------------------- */
+
+@utility container-nice {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 78rem;
+  padding-inline: 1.25rem;
+
+  @media (width >= 40rem) {
+    padding-inline: 2rem;
+  }
+  @media (width >= 80rem) {
+    padding-inline: 2.5rem;
+  }
+}
+
+/* Bölüm başlıklarının üstündeki küçük etiket */
+@utility eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Görünürlük animasyonu (IntersectionObserver ile tetiklenir)                */
+/* -------------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 14px, 0);
+  transition:
+    opacity 0.65s ease,
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal[data-visible='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal[data-visible='true'] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Doku desenleri — görselsiz bölümlerin boş görünmemesi için                 */
+/* -------------------------------------------------------------------------- */
+
+.texture-grid {
+  background-image:
+    linear-gradient(to right, var(--color-ink-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-ink-line) 1px, transparent 1px);
+  background-size: 88px 88px;
+  mask-image: radial-gradient(80% 70% at 50% 0%, #000 20%, transparent 100%);
+}
+
+.texture-dots {
+  background-image: radial-gradient(
+    var(--color-sand-deep) 1.1px,
+    transparent 1.1px
+  );
+  background-size: 22px 22px;
+  mask-image: radial-gradient(70% 60% at 50% 50%, #000 10%, transparent 100%);
+}
+
+/* -------------------------------------------------------------------------- */
+/*  Çözüm ortakları şeridi                                                     */
+/* -------------------------------------------------------------------------- */
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 46s linear infinite;
+}
+
+.marquee-viewport:hover .marquee,
+.marquee-viewport:focus-within .marquee {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+/* Hareket azaltma tercihinde: kaydırma durur, şerit yatay kaydırılabilir olur. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+    width: auto;
+  }
+  .marquee-viewport {
+    overflow-x: auto;
+  }
+  .marquee-duplicate {
+    display: none;
+  }
+}

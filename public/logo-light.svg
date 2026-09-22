@@ -1,0 +1,8 @@
+<!-- Yer tutucu wordmark — KOYU zeminde kullanılan açık sürüm.
+     logo.svg ile aynı çizim, yalnızca renk farklı. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 44" width="200" height="44" role="img" aria-label="Nice Temizlik ve Gıda">
+  <rect x="0.75" y="0.75" width="42.5" height="42.5" rx="7.25" fill="none" stroke="#f5f2ec" stroke-width="1.5" opacity="0.45"/>
+  <path d="M13 32V12l18 20V12" fill="none" stroke="#f5f2ec" stroke-width="3.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <text x="56" y="21" font-family="Archivo, ui-sans-serif, system-ui, sans-serif" font-size="16.5" font-weight="700" letter-spacing="-0.3" fill="#f5f2ec">NICE</text>
+  <text x="56" y="35" font-family="IBM Plex Sans, ui-sans-serif, system-ui, sans-serif" font-size="9.2" font-weight="500" letter-spacing="2.1" fill="#f5f2ec" opacity="0.72">TEMİZLİK VE GIDA</text>
+</svg>

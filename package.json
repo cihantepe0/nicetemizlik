@@ -1,0 +1,28 @@
+{
+  "name": "nicetemizlik",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && node scripts/finalize-out.mjs",
+    "start": "serve out -l tcp://0.0.0.0:${PORT:-3000}"
+  },
+  "dependencies": {
+    "lucide-react": "^1.35.0",
+    "next": "^15.5.24",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "serve": "^14.2.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^26.4.0",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

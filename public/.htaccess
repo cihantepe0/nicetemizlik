@@ -1,0 +1,67 @@
+# ============================================================================
+#  Nice Temizlik ve Gıda — Apache / cPanel yapılandırması
+#  Bu dosya `npm run build` sonrası out/ klasörüne kopyalanır ve site
+#  dosyalarıyla birlikte public_html içine yüklenir.
+# ============================================================================
+
+# --- HTTPS ve www yönlendirmesi ---------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # http -> https
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+  # www olmayan -> www  (tersini istiyorsanız bu bloğu değiştirin)
+  RewriteCond %{HTTP_HOST} ^(?!www\.)(.+)$ [NC]
+  RewriteRule ^(.*)$ https://www.%1/$1 [R=301,L]
+</IfModule>
+
+# --- Özel 404 sayfası --------------------------------------------------------
+ErrorDocument 404 /404.html
+
+# --- Dizin listelemesini kapat ----------------------------------------------
+Options -Indexes
+
+# --- MIME tipleri ------------------------------------------------------------
+<IfModule mod_mime.c>
+  AddType image/webp .webp
+  AddType image/svg+xml .svg
+  AddType font/woff2 .woff2
+</IfModule>
+
+# --- Sıkıştırma --------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml \
+    application/javascript application/json image/svg+xml
+</IfModule>
+
+# --- Tarayıcı önbelleği ------------------------------------------------------
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Hash'li varlıklar: uzun süreli önbellek
+  <FilesMatch "\.(js|css|woff2)$">
+    ExpiresDefault "access plus 1 year"
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Görseller
+  <FilesMatch "\.(webp|svg|png|jpg|jpeg|ico)$">
+    ExpiresDefault "access plus 30 days"
+  </FilesMatch>
+
+  # HTML: her zaman doğrulansın (içerik güncellemesi anında görünsün)
+  <FilesMatch "\.html$">
+    ExpiresDefault "access plus 0 seconds"
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# --- Güvenlik başlıkları -----------------------------------------------------
+<IfModule mod_headers.c>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-Frame-Options "SAMEORIGIN"
+</IfModule>
