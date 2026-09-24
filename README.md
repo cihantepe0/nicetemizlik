@@ -193,8 +193,6 @@ Key değiştirilmediği sürece form gönderimi başarısız olur ve kullanıcı
 Kodda `TODO:` olarak işaretlenmiş, müşteriden bilgi bekleyen noktalar:
 
 - [ ] **Web3Forms key** — `content/site.ts` › `WEB3FORMS_KEY`
-- [ ] **Alan adı** — `content/site.ts` › `DEFAULT_SITE_URL` (tek yer;
-      `robots.txt` ve `sitemap.xml` build sırasında buradan üretilir)
 - [ ] **Gıda ürün grubu** — `content/site.ts` › `products.items`
       (şimdilik eklenmedi; liste gelince tek kart olarak eklenecek)
 - [ ] **Sevkiyat detayı** — `content/site.ts` › `logistics.note`

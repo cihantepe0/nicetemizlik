@@ -23,15 +23,15 @@ export const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 /* -------------------------------------------------------------------------- */
 
 /**
- * Sitenin asıl adresi.
- * TODO: gerçek alan adı ile değiştirilecek.
+ * Sitenin asıl adresi. canonical, OpenGraph, robots.txt ve sitemap.xml
+ * buradan üretilir.
  *
- * Geçici bir adreste (ör. Railway) yayınlarken bu değeri değiştirmek yerine
- * ortam değişkeni verin; build sırasında o kullanılır:
- *   NEXT_PUBLIC_SITE_URL=https://xxx.up.railway.app
- *   NEXT_PUBLIC_NOINDEX=true
+ * Farklı bir adreste yayınlarken bu değeri değiştirmek yerine build
+ * sırasında ortam değişkeni verin:
+ *   NEXT_PUBLIC_SITE_URL=https://ornek.up.railway.app
+ *   NEXT_PUBLIC_NOINDEX=true     (geçici adresin Google'a düşmesini engeller)
  */
-const DEFAULT_SITE_URL = 'https://www.nicetemizlikvegida.com';
+const DEFAULT_SITE_URL = 'https://www.nicetemizlikgida.com';
 
 const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL || DEFAULT_SITE_URL
