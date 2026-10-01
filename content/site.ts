@@ -98,7 +98,22 @@ export type Img = {
 /*  İçerik                                                                     */
 /* -------------------------------------------------------------------------- */
 
+/**
+ * Dükkânın kesin konumu. Google Haritalar'da dükkânın üstüne sağ tıklayıp
+ * kopyalanan "enlem, boylam" değeri. Boş bırakılırsa harita adres metninden
+ * konum tahmin eder ve iğne yanlış yere düşebilir.
+ */
+// TODO: müşteri bilgisi bekleniyor — dükkânın koordinatları
+const geo = null as { lat: number; lng: number } | null;
+
+const mapsQuery = geo
+  ? `${geo.lat},${geo.lng}`
+  : encodeURIComponent(
+      'Güzelçamlı Mahallesi Milli Park Caddesi No 213/C Kuşadası Aydın',
+    );
+
 const contact = {
+  geo,
   phoneDisplay: '0552 119 64 23',
   phoneHref: 'tel:+905521196423',
   phoneIntl: '+90 552 119 64 23',
@@ -114,17 +129,8 @@ const contact = {
     postalCode: '', // TODO: müşteri bilgisi bekleniyor — posta kodu
     full: 'Güzelçamlı Mahallesi, Milli Park Caddesi No: 213/C, Kuşadası / Aydın',
   },
-  mapsEmbedSrc:
-    'https://www.google.com/maps?q=' +
-    encodeURIComponent(
-      'Güzelçamlı Mahallesi Milli Park Caddesi No 213/C Kuşadası Aydın',
-    ) +
-    '&hl=tr&z=16&output=embed',
-  mapsHref:
-    'https://www.google.com/maps/search/?api=1&query=' +
-    encodeURIComponent(
-      'Güzelçamlı Mahallesi Milli Park Caddesi No 213/C Kuşadası Aydın',
-    ),
+  mapsEmbedSrc: 'https://www.google.com/maps?q=' + mapsQuery + '&hl=tr&z=17&output=embed',
+  mapsHref: 'https://www.google.com/maps/search/?api=1&query=' + mapsQuery,
   // TODO: müşteri bilgisi bekleniyor — çalışma saatleri, e-posta adresi
 } as const;
 

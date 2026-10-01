@@ -37,7 +37,14 @@ export function JsonLd() {
         telephone: site.contact.phoneIntl,
         address,
         parentOrganization: { '@id': `${site.seo.siteUrl}/#organization` },
-        // TODO: müşteri bilgisi bekleniyor — openingHours, geo koordinatları,
+        ...(site.contact.geo && {
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: site.contact.geo.lat,
+            longitude: site.contact.geo.lng,
+          },
+        }),
+        // TODO: müşteri bilgisi bekleniyor — openingHours,
         // priceRange gibi alanlar doğrulanmadan eklenmeyecek.
       },
     ],
