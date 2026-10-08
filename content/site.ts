@@ -103,8 +103,7 @@ export type Img = {
  * kopyalanan "enlem, boylam" değeri. Boş bırakılırsa harita adres metninden
  * konum tahmin eder ve iğne yanlış yere düşebilir.
  */
-// TODO: müşteri bilgisi bekleniyor — dükkânın koordinatları
-const geo = null as { lat: number; lng: number } | null;
+const geo = { lat: 37.713917, lng: 27.219622 } as { lat: number; lng: number } | null;
 
 const mapsQuery = geo
   ? `${geo.lat},${geo.lng}`
